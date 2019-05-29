@@ -8,19 +8,20 @@ class LoginForm extends React.Component {
     state = {
         email: "",
         password: "",
-        error: ""
+        error: "",
+        success: ""
     };
 
     logIn = () => {
         const {email, password} = this.state;
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
-                alert("im in!");
-                this.setState({error: ""})
+                // alert("im in!");
+                this.setState({error: "", success: "Successfully logged in"})
             })
             .catch(() => {
                 firebase.auth().createUserWithEmailAndPassword(email, password)
-                    .catch(this.setState({error: "Error authenticating a user"}))
+                    .catch(this.setState({error: "Error authenticating a user", success: ""}))
             })
 
     };
@@ -47,6 +48,9 @@ class LoginForm extends React.Component {
             <Text style={style.errorTextStyle}>
                 {this.state.error}
             </Text>
+            <Text style={style.successTextStyle}>
+                {this.state.success}
+            </Text>
             <CardSection>
                 <Button handler={() => this.logIn()}>Log in</Button>
             </CardSection>
@@ -58,6 +62,11 @@ const style = {
     errorTextStyle: {
         fontSize: 20,
         color: "red",
+        alignSelf: "center"
+    },
+    successTextStyle: {
+        fontSize: 18,
+        color: "#017ddd",
         alignSelf: "center"
     }
 };
