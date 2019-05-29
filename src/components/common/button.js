@@ -10,7 +10,6 @@ const Button = function ({handler, children}) {
         style={buttonStyle}>
         <Text style={textStyle}> {children} </Text>
     </TouchableOpacity>
-
 };
 
 export {Button};
